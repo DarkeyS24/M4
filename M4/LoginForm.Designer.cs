@@ -40,7 +40,7 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.pictureBox1.Location = new System.Drawing.Point(128, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(132, 27);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(364, 134);
             this.pictureBox1.TabIndex = 0;
@@ -71,7 +71,7 @@
             this.label1.Font = new System.Drawing.Font("Uber Move", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(39, 202);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 32);
+            this.label1.Size = new System.Drawing.Size(82, 33);
             this.label1.TabIndex = 3;
             this.label1.Text = "Email";
             // 
@@ -81,14 +81,14 @@
             this.label2.Font = new System.Drawing.Font("Uber Move", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(27, 271);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 32);
+            this.label2.Size = new System.Drawing.Size(95, 33);
             this.label2.TabIndex = 4;
             this.label2.Text = "Senha";
             // 
             // entrarBtn
             // 
             this.entrarBtn.Font = new System.Drawing.Font("Uber Move", 16.2F, System.Drawing.FontStyle.Bold);
-            this.entrarBtn.Location = new System.Drawing.Point(234, 342);
+            this.entrarBtn.Location = new System.Drawing.Point(218, 344);
             this.entrarBtn.Name = "entrarBtn";
             this.entrarBtn.Size = new System.Drawing.Size(168, 40);
             this.entrarBtn.TabIndex = 5;
