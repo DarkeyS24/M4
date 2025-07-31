@@ -24,7 +24,6 @@ namespace M4
         private List<Cidades> cdList = new List<Cidades>();
         private int finalCount = 0;
         private bool emAtendimento = false;
-        private PaintEventArgs paint;
         private int index = 0;
 
         public DashboardForm()
@@ -218,25 +217,13 @@ namespace M4
 
             pacienteTxt.Text = atdList[0].Paciente.Nome;
             respTxt.Text = atdList[0].Responsavel.Nome;
-
-            if (atdList[0].StatusClinicoId != 1)
-            {
-                origemCb.Enabled = false;
-                destinoCb.Enabled = false;
-                tipoCb.Enabled = false;
-            }
-            else
-            {
-                origemCb.Enabled = true;
-                destinoCb.Enabled = true;
-                tipoCb.Enabled = true;
-            }
+            SetComboBoxesEnabled();
 
             var fullPathOrigem = AppDomain.CurrentDomain.BaseDirectory + $@"Images\{atdList[0].HospitalOrigem.Estado.Sigla.ToLower()}.png";
             origemCb.SelectedItem = atdList[0].HospitalOrigem.Cidade;
             origemPb.Image = Image.FromFile(fullPathOrigem);
-            
-            
+
+
             var fullPathDestino = AppDomain.CurrentDomain.BaseDirectory + $@"Images\{atdList[0].UnidadeDestino.Estado.Sigla.ToLower()}.png";
             destinoCb.SelectedItem = atdList[0].UnidadeDestino.Cidade;
             destinoPb.Image = Image.FromFile(fullPathDestino);
@@ -283,6 +270,22 @@ namespace M4
             {
                 finalCount = 2;
                 emAtendimento = true;
+            }
+        }
+
+        private void SetComboBoxesEnabled()
+        {
+            if (atdList[0].StatusClinicoId != 1)
+            {
+                origemCb.Enabled = false;
+                destinoCb.Enabled = false;
+                tipoCb.Enabled = false;
+            }
+            else
+            {
+                origemCb.Enabled = true;
+                destinoCb.Enabled = true;
+                tipoCb.Enabled = true;
             }
         }
 
@@ -397,14 +400,13 @@ namespace M4
         private void statusPanel_Paint(object sender, PaintEventArgs e)
         {
             SetAtendimentosList();
-            paint = e;
             PaintEllipse();
         }
 
         private void PaintEllipse()
         {
             SetAtendimentosList();
-            Graphics g = paint.Graphics;
+            Graphics g = statusPanel.CreateGraphics();
 
             if (atdList.Count > 0)
             {
@@ -437,7 +439,8 @@ namespace M4
                     g.DrawLine(pen, 100, 25, 275, 25);
                     g.DrawLine(pen, 325, 25, 500, 25);
                 }
-            }       
+                SetLabels();
+            }
         }
 
         private void rigthAnoBtn_Click(object sender, EventArgs e)
@@ -571,6 +574,11 @@ namespace M4
                 atdList = list.OrderBy(l => l.Paciente.Nome).ToList();
             }
 
+            SetLabels();
+        }
+
+        private void SetLabels()
+        {
             if (atdList[index].StatusClinicoId == 1)
             {
                 aguardandoLbl.Visible = true;
@@ -578,21 +586,21 @@ namespace M4
                 altaLbl.Visible = false;
                 obitoLbl.Visible = false;
             }
-            else if (atdList[index].StatusClinicoId >= 2)
+            else if (atdList[index].StatusClinicoId == 2)
             {
                 aguardandoLbl.Visible = false;
                 tratamentoLbl.Visible = true;
                 altaLbl.Visible = false;
                 obitoLbl.Visible = false;
             }
-            else if (atdList[index].StatusClinicoId >= 3)
+            else if (atdList[index].StatusClinicoId == 3)
             {
                 aguardandoLbl.Visible = false;
                 tratamentoLbl.Visible = false;
                 altaLbl.Visible = true;
                 obitoLbl.Visible = false;
             }
-            else if (atdList[index].StatusClinicoId >= 4)
+            else if (atdList[index].StatusClinicoId == 4)
             {
                 aguardandoLbl.Visible = false;
                 tratamentoLbl.Visible = false;
@@ -862,6 +870,9 @@ namespace M4
                     atendimento.HospitalOrigemId = origemCb.SelectedIndex + 1;
                     atendimento.UnidadeDestinoId = destinoCb.SelectedIndex + 1;
                     atendimento.TipoAtendimentoId = tipoCb.SelectedIndex + 1;
+                    atendimento.DataIncioTratamento = DateTime.Now;
+                    inicioPicker.CustomFormat = "dd/MM/yyyy";
+                    inicioPicker.Value = DateTime.Now;
                     context.Atendimentos.Update(atendimento);
                     context.SaveChanges();
                     statusPanel.Invalidate();
@@ -874,6 +885,9 @@ namespace M4
                 if (finalCount == 1)
                 {
                     atendimento.StatusClinicoId = 3;
+                    atendimento.DataTerminoTratamento = DateTime.Now;
+                    terminoPicker.CustomFormat = "dd/MM/yyyy";
+                    terminoPicker.Value = DateTime.Now;
                     context.Atendimentos.Update(atendimento);
                     context.SaveChanges();
                     statusPanel.Invalidate();
@@ -884,6 +898,9 @@ namespace M4
                 else if (finalCount == 2)
                 {
                     atendimento.StatusClinicoId = 4;
+                    atendimento.DataTerminoTratamento = DateTime.Now;
+                    terminoPicker.CustomFormat = "dd/MM/yyyy";
+                    terminoPicker.Value = DateTime.Now;
                     context.Atendimentos.Update(atendimento);
                     context.SaveChanges();
                     statusPanel.Invalidate();
@@ -896,6 +913,21 @@ namespace M4
                     return;
                 }
             }
+            SetComboBoxesEnabled();
+        }
+
+        private void destinoCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var c = context.Cidades.Include(ci => ci.Estado).ToList();
+            var fullPathDestino = AppDomain.CurrentDomain.BaseDirectory + $@"Images\{c[destinoCb.SelectedIndex].Estado.Sigla.ToLower()}.png";
+            destinoPb.Image = Image.FromFile(fullPathDestino);
+        }
+
+        private void origemCb_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var c = context.Cidades.Include(ci => ci.Estado).ToList();
+            var fullPathOrigem = AppDomain.CurrentDomain.BaseDirectory + $@"Images\{c[origemCb.SelectedIndex].Estado.Sigla.ToLower()}.png";
+            origemPb.Image = Image.FromFile(fullPathOrigem);
         }
     }
 }

@@ -355,6 +355,7 @@
             this.destinoCb.Name = "destinoCb";
             this.destinoCb.Size = new System.Drawing.Size(248, 40);
             this.destinoCb.TabIndex = 5;
+            this.destinoCb.SelectedIndexChanged += new System.EventHandler(this.destinoCb_SelectedIndexChanged);
             // 
             // origemCb
             // 
@@ -364,6 +365,7 @@
             this.origemCb.Name = "origemCb";
             this.origemCb.Size = new System.Drawing.Size(248, 40);
             this.origemCb.TabIndex = 4;
+            this.origemCb.SelectedIndexChanged += new System.EventHandler(this.origemCb_SelectedIndexChanged);
             // 
             // statusPanel
             // 
