@@ -54,7 +54,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.transList = new System.Windows.Forms.CheckedListBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.numberTxt = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.pacientesTxt = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -62,11 +61,15 @@
             this.label11 = new System.Windows.Forms.Label();
             this.inicioPicker = new System.Windows.Forms.DateTimePicker();
             this.terminoPicker = new System.Windows.Forms.DateTimePicker();
+            this.limparInicioBtn = new System.Windows.Forms.Button();
+            this.limparTerminoBtn = new System.Windows.Forms.Button();
+            this.numberPicker = new System.Windows.Forms.NumericUpDown();
             this.panel2.SuspendLayout();
             this.filterPanel.SuspendLayout();
             this.panel3.SuspendLayout();
             this.dgvPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiltered)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberPicker)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
@@ -253,13 +256,15 @@
             // dgvPanel
             // 
             this.dgvPanel.BackColor = System.Drawing.Color.White;
+            this.dgvPanel.Controls.Add(this.numberPicker);
+            this.dgvPanel.Controls.Add(this.limparTerminoBtn);
+            this.dgvPanel.Controls.Add(this.limparInicioBtn);
             this.dgvPanel.Controls.Add(this.terminoPicker);
             this.dgvPanel.Controls.Add(this.inicioPicker);
             this.dgvPanel.Controls.Add(this.label11);
             this.dgvPanel.Controls.Add(this.label10);
             this.dgvPanel.Controls.Add(this.pacientesTxt);
             this.dgvPanel.Controls.Add(this.label9);
-            this.dgvPanel.Controls.Add(this.numberTxt);
             this.dgvPanel.Controls.Add(this.transList);
             this.dgvPanel.Controls.Add(this.label7);
             this.dgvPanel.Controls.Add(this.sexoList);
@@ -298,6 +303,7 @@
             this.destinoList.Name = "destinoList";
             this.destinoList.Size = new System.Drawing.Size(371, 92);
             this.destinoList.TabIndex = 1;
+            this.destinoList.SelectedIndexChanged += new System.EventHandler(this.destinoList_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -318,6 +324,7 @@
             this.origemList.Name = "origemList";
             this.origemList.Size = new System.Drawing.Size(371, 92);
             this.origemList.TabIndex = 4;
+            this.origemList.SelectedIndexChanged += new System.EventHandler(this.origemList_SelectedIndexChanged);
             // 
             // label5
             // 
@@ -342,6 +349,7 @@
             this.sexoList.Name = "sexoList";
             this.sexoList.Size = new System.Drawing.Size(371, 92);
             this.sexoList.TabIndex = 6;
+            this.sexoList.SelectedIndexChanged += new System.EventHandler(this.sexoList_SelectedIndexChanged);
             // 
             // label6
             // 
@@ -366,6 +374,7 @@
             this.transList.Name = "transList";
             this.transList.Size = new System.Drawing.Size(371, 92);
             this.transList.TabIndex = 8;
+            this.transList.SelectedIndexChanged += new System.EventHandler(this.transList_SelectedIndexChanged);
             // 
             // label7
             // 
@@ -376,18 +385,10 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "Tipo de Transporte";
             // 
-            // numberTxt
-            // 
-            this.numberTxt.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.numberTxt.Location = new System.Drawing.Point(15, 311);
-            this.numberTxt.Name = "numberTxt";
-            this.numberTxt.Size = new System.Drawing.Size(371, 40);
-            this.numberTxt.TabIndex = 10;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 276);
+            this.label8.Location = new System.Drawing.Point(9, 277);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(304, 33);
             this.label8.TabIndex = 11;
@@ -400,6 +401,7 @@
             this.pacientesTxt.Name = "pacientesTxt";
             this.pacientesTxt.Size = new System.Drawing.Size(371, 40);
             this.pacientesTxt.TabIndex = 12;
+            this.pacientesTxt.TextChanged += new System.EventHandler(this.pacientesTxt_TextChanged);
             // 
             // label9
             // 
@@ -435,6 +437,7 @@
             this.inicioPicker.Name = "inicioPicker";
             this.inicioPicker.Size = new System.Drawing.Size(208, 40);
             this.inicioPicker.TabIndex = 18;
+            this.inicioPicker.ValueChanged += new System.EventHandler(this.inicioPicker_ValueChanged);
             // 
             // terminoPicker
             // 
@@ -443,6 +446,40 @@
             this.terminoPicker.Name = "terminoPicker";
             this.terminoPicker.Size = new System.Drawing.Size(208, 40);
             this.terminoPicker.TabIndex = 19;
+            this.terminoPicker.ValueChanged += new System.EventHandler(this.terminoPicker_ValueChanged);
+            // 
+            // limparInicioBtn
+            // 
+            this.limparInicioBtn.Location = new System.Drawing.Point(230, 54);
+            this.limparInicioBtn.Name = "limparInicioBtn";
+            this.limparInicioBtn.Size = new System.Drawing.Size(109, 40);
+            this.limparInicioBtn.TabIndex = 7;
+            this.limparInicioBtn.Text = "limpar";
+            this.limparInicioBtn.UseVisualStyleBackColor = true;
+            this.limparInicioBtn.Click += new System.EventHandler(this.limparInicioBtn_Click);
+            // 
+            // limparTerminoBtn
+            // 
+            this.limparTerminoBtn.Location = new System.Drawing.Point(230, 140);
+            this.limparTerminoBtn.Name = "limparTerminoBtn";
+            this.limparTerminoBtn.Size = new System.Drawing.Size(109, 40);
+            this.limparTerminoBtn.TabIndex = 20;
+            this.limparTerminoBtn.Text = "limpar";
+            this.limparTerminoBtn.UseVisualStyleBackColor = true;
+            this.limparTerminoBtn.Click += new System.EventHandler(this.limparTerminoBtn_Click);
+            // 
+            // numberPicker
+            // 
+            this.numberPicker.Location = new System.Drawing.Point(15, 312);
+            this.numberPicker.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numberPicker.Name = "numberPicker";
+            this.numberPicker.Size = new System.Drawing.Size(208, 40);
+            this.numberPicker.TabIndex = 21;
+            this.numberPicker.ValueChanged += new System.EventHandler(this.numberPicker_ValueChanged);
             // 
             // FilteredTableForm
             // 
@@ -470,6 +507,7 @@
             this.dgvPanel.ResumeLayout(false);
             this.dgvPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiltered)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numberPicker)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -494,7 +532,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel dgvPanel;
         private System.Windows.Forms.DataGridView dgvFiltered;
-        private System.Windows.Forms.TextBox numberTxt;
         private System.Windows.Forms.CheckedListBox transList;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckedListBox sexoList;
@@ -510,5 +547,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DateTimePicker terminoPicker;
         private System.Windows.Forms.DateTimePicker inicioPicker;
+        private System.Windows.Forms.Button limparTerminoBtn;
+        private System.Windows.Forms.Button limparInicioBtn;
+        private System.Windows.Forms.NumericUpDown numberPicker;
     }
 }

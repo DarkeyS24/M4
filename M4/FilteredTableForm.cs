@@ -21,6 +21,9 @@ namespace M4
         private readonly Sessao4 context;
         private List<Cidades> cidadesOrigemList;
         private List<Cidades> cidadesDestinoList;
+        private List<Atendimentos> atdList = new List<Atendimentos>();
+        private bool inicio = false;
+        private bool termino = false;
         public FilteredTableForm()
         {
             InitializeComponent();
@@ -70,6 +73,7 @@ namespace M4
 
         private void defineBtn_Click(object sender, EventArgs e)
         {
+            atdList = context.Atendimentos.Where(a => a.ResponsavelId == Properties.Settings.Default.UsuarioId).ToList();
             filterPanel.Visible = false;
             dgvPanel.Visible = true;
         }
@@ -118,6 +122,142 @@ namespace M4
             application.Quit();
 
             MessageBox.Show("Dados Exportados");
+        }
+
+        private void limparInicioBtn_Click(object sender, EventArgs e)
+        {
+            inicio = false;
+            inicioPicker.Format = DateTimePickerFormat.Custom;
+            inicioPicker.CustomFormat = " ";
+        }
+
+        private void limparTerminoBtn_Click(object sender, EventArgs e)
+        {
+            termino = false;
+            terminoPicker.Format = DateTimePickerFormat.Custom;
+            terminoPicker.CustomFormat = " ";
+        }
+
+        private void inicioPicker_ValueChanged(object sender, EventArgs e)
+        {
+            inicio = true;
+            inicioPicker.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void terminoPicker_ValueChanged(object sender, EventArgs e)
+        {
+            termino = true;
+            terminoPicker.CustomFormat = "dd/MM/yyyy";
+        }
+
+        private void pacientesTxt_TextChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void numberPicker_ValueChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void transList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void sexoList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void origemList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void destinoList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FilterTable();
+        }
+
+        private void FilterTable()
+        {
+            var list = atdList;
+            if (inicio)
+            {
+                list = list.Where(l => l.DataIncioTratamento == inicioPicker.Value).ToList();
+            }
+
+            if (termino)
+            {
+                list = list.Where(l => l.DataTerminoTratamento == terminoPicker.Value).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(pacientesTxt.Text))
+            {
+                list = list.Where(l => l.Paciente.Nome.ToLower().Contains(pacientesTxt.Text.ToLower())).ToList();
+            }
+
+            if (transList.CheckedItems.Count > 0)
+            {
+                var newList = list;
+                foreach (var item in transList.CheckedItems)
+                {
+                    newList.AddRange(list.Where(l => l.TipoAtendimento.TipoAtendimento == item.ToString()).ToList());
+                }
+                list = newList;
+            }
+
+            if (sexoList.CheckedItems.Count > 0)
+            {
+                var newList = list;
+                foreach (var item in sexoList.CheckedItems)
+                {
+                    newList.AddRange(list.Where(l => l.Paciente.Sexo == item.ToString()).ToList());
+                }
+                list = newList;
+            }
+
+            if (origemList.CheckedItems.Count > 0)
+            {
+                var newList = list;
+                foreach (var item in origemList.CheckedItems)
+                {
+                    newList.AddRange(list.Where(l => l.HospitalOrigem.Cidade == item.ToString()).ToList());
+                }
+                list = newList;
+            }
+
+            if (destinoList.CheckedItems.Count > 0)
+            {
+                var newList = list;
+                foreach (var item in destinoList.CheckedItems)
+                {
+                    newList.AddRange(list.Where(l => l.UnidadeDestino.Cidade == item.ToString()).ToList());
+                }
+                list = newList;
+            }
+
+            if (numberPicker.Value > 0)
+            {
+                if (numberPicker.Value < list.Count)
+                {
+                    list = list.GetRange(0, (int)numberPicker.Value);
+                }
+                else
+                {
+                    MessageBox.Show($"A lista não tem essa quantidade de registros, Items na lista: {list.Count}");
+                }
+            }
+
+            if (list.Count > 0)
+            {
+                
+            }
+            else
+            {
+                MessageBox.Show("Não tem items na lista com esses parametros");
+            }
         }
     }
 }
