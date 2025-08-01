@@ -70,6 +70,7 @@ namespace M4
 
         private void defineBtn_Click(object sender, EventArgs e)
         {
+            filterPanel.Visible = false;
             dgvPanel.Visible = true;
         }
 
@@ -111,7 +112,7 @@ namespace M4
             }
 
             worksheet.Columns.AutoFit();
-            string filePath = AppDomain.CurrentDomain.BaseDirectory + $@"Excel\{DateTime.Now.ToString("yyyyMMdd_HHmmss")}_Filtered_Table";
+            string filePath = AppDomain.CurrentDomain.BaseDirectory + $@"Excel\{DateTime.Now:yyyyMMdd_HHmmss}_Filtered_Table";
             workbook.SaveAs(filePath);
             workbook.Close();
             application.Quit();
