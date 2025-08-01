@@ -70,12 +70,17 @@ namespace M4
 
         private void defineBtn_Click(object sender, EventArgs e)
         {
-
+            dgvPanel.Visible = true;
         }
 
         private void cancelBtn_Click(object sender, EventArgs e)
         {
             filterPanel.Visible = false;
+            DashboardForm dashboard = new DashboardForm();
+            dashboard.Show();
+            dashboard.SetPrevForm(form);
+            dashboard.Show();
+            this.Dispose();
         }
 
         private void exportBtn_Click(object sender, EventArgs e)

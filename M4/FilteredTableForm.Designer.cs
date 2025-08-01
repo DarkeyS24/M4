@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dashboardLink = new System.Windows.Forms.LinkLabel();
             this.atendimetoLink = new System.Windows.Forms.LinkLabel();
@@ -45,7 +44,7 @@
             this.xLbl = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.dgvPanel = new System.Windows.Forms.Panel();
             this.dgvFiltered = new System.Windows.Forms.DataGridView();
             this.destinoList = new System.Windows.Forms.CheckedListBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -66,7 +65,7 @@
             this.panel2.SuspendLayout();
             this.filterPanel.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.dgvPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiltered)).BeginInit();
             this.SuspendLayout();
             // 
@@ -251,43 +250,36 @@
             this.label3.TabIndex = 6;
             this.label3.Text = "Transferências";
             // 
-            // panel1
+            // dgvPanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.terminoPicker);
-            this.panel1.Controls.Add(this.inicioPicker);
-            this.panel1.Controls.Add(this.label11);
-            this.panel1.Controls.Add(this.label10);
-            this.panel1.Controls.Add(this.pacientesTxt);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.numberTxt);
-            this.panel1.Controls.Add(this.transList);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.sexoList);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.origemList);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.destinoList);
-            this.panel1.Controls.Add(this.dgvFiltered);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Location = new System.Drawing.Point(12, 155);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1248, 931);
-            this.panel1.TabIndex = 6;
+            this.dgvPanel.BackColor = System.Drawing.Color.White;
+            this.dgvPanel.Controls.Add(this.terminoPicker);
+            this.dgvPanel.Controls.Add(this.inicioPicker);
+            this.dgvPanel.Controls.Add(this.label11);
+            this.dgvPanel.Controls.Add(this.label10);
+            this.dgvPanel.Controls.Add(this.pacientesTxt);
+            this.dgvPanel.Controls.Add(this.label9);
+            this.dgvPanel.Controls.Add(this.numberTxt);
+            this.dgvPanel.Controls.Add(this.transList);
+            this.dgvPanel.Controls.Add(this.label7);
+            this.dgvPanel.Controls.Add(this.sexoList);
+            this.dgvPanel.Controls.Add(this.label6);
+            this.dgvPanel.Controls.Add(this.origemList);
+            this.dgvPanel.Controls.Add(this.label5);
+            this.dgvPanel.Controls.Add(this.destinoList);
+            this.dgvPanel.Controls.Add(this.dgvFiltered);
+            this.dgvPanel.Controls.Add(this.label4);
+            this.dgvPanel.Controls.Add(this.label8);
+            this.dgvPanel.Location = new System.Drawing.Point(12, 155);
+            this.dgvPanel.Name = "dgvPanel";
+            this.dgvPanel.Size = new System.Drawing.Size(1248, 931);
+            this.dgvPanel.TabIndex = 6;
+            this.dgvPanel.Visible = false;
             // 
             // dgvFiltered
             // 
             this.dgvFiltered.BackgroundColor = System.Drawing.Color.White;
             this.dgvFiltered.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Uber Move", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvFiltered.DefaultCellStyle = dataGridViewCellStyle6;
             this.dgvFiltered.Location = new System.Drawing.Point(412, 19);
             this.dgvFiltered.Name = "dgvFiltered";
             this.dgvFiltered.RowHeadersWidth = 51;
@@ -423,7 +415,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(9, 19);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(346, 41);
+            this.label10.Size = new System.Drawing.Size(277, 33);
             this.label10.TabIndex = 15;
             this.label10.Text = "Inicio do Tratamento";
             // 
@@ -432,7 +424,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(9, 105);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(393, 41);
+            this.label11.Size = new System.Drawing.Size(314, 33);
             this.label11.TabIndex = 17;
             this.label11.Text = "Término do Tratamento";
             // 
@@ -459,7 +451,7 @@
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(1272, 1100);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dgvPanel);
             this.Controls.Add(this.filterPanel);
             this.Controls.Add(this.exportBtn);
             this.Controls.Add(this.parametersBtn);
@@ -475,8 +467,8 @@
             this.filterPanel.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.dgvPanel.ResumeLayout(false);
+            this.dgvPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFiltered)).EndInit();
             this.ResumeLayout(false);
 
@@ -500,7 +492,7 @@
         private System.Windows.Forms.CheckedListBox transListCb;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel dgvPanel;
         private System.Windows.Forms.DataGridView dgvFiltered;
         private System.Windows.Forms.TextBox numberTxt;
         private System.Windows.Forms.CheckedListBox transList;
