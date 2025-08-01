@@ -929,5 +929,13 @@ namespace M4
             var fullPathOrigem = AppDomain.CurrentDomain.BaseDirectory + $@"Images\{c[origemCb.SelectedIndex].Estado.Sigla.ToLower()}.png";
             origemPb.Image = Image.FromFile(fullPathOrigem);
         }
+
+        private void dashboardLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FilteredTableForm filtered = new FilteredTableForm();
+            filtered.SetloginForm(loginForm);
+            filtered.Show();
+            this.Dispose();
+        }
     }
 }

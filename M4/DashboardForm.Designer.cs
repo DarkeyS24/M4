@@ -451,6 +451,7 @@
             this.dashboardLink.TabIndex = 1;
             this.dashboardLink.TabStop = true;
             this.dashboardLink.Text = "Dashboard";
+            this.dashboardLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.dashboardLink_LinkClicked);
             // 
             // atendimetoLink
             // 
